@@ -1,5 +1,14 @@
 package edu.davidengel.advancedjava;
 
+/**
+ * This is a test class for stockquotes and stockservices
+ *
+ * @author David Engel and others
+ * @verion 1.0
+ * @since 9-15-2018
+ */
+
+
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -16,6 +25,9 @@ public class AppTest
 {
 
 
+    /**
+     * Positive Test
+     */
     @org.junit.Test
     public void createQuoteTestSymbol() {
 
@@ -25,10 +37,13 @@ public class AppTest
 
         String actualSymbolValue = app.createQuote("csco").getStockSymbol();
 
-        assertEquals(expectedSymboValue, actualSymbolValue);
+        assertEquals("Symbol fed to factory should match return symbol",expectedSymboValue, actualSymbolValue);
 
     }
 
+    /**
+     * Negative Test
+     */
     @org.junit.Test
     public void createQuoteTestNegative() {
 
@@ -36,7 +51,7 @@ public class AppTest
 
         String actualSymbolValue = app.createQuote("csco").getStockSymbol();
 
-        assertNotNull(actualSymbolValue);
+        assertNotNull("Stock Symbol should be null",actualSymbolValue);
 
     }
 }

@@ -1,5 +1,15 @@
 package edu.davidengel.advancedjava;
 
+
+/**
+ * This BasicStockService class his a concrete implementation of StockService
+ *
+ * @author David Engel
+ * @verion 1.0
+ * @since 9-15-2018
+ */
+
+
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -11,6 +21,7 @@ public class BasicStockService implements StockService {
      * @param symbol the stock symbol
      * @return a new stockquote initialized
      */
+
 
     public StockQuote getQuote(String symbol) {
 
