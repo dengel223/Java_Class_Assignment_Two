@@ -6,8 +6,13 @@ package edu.davidengel.advancedjava;
  */
 public class App 
 {
-    public static void main( String[] args )
+    public StockQuote createQuote(String symbol)
     {
-        System.out.println( "Hello World!" );
+
+        //use the factory to get a new stockservice implementation
+        StockService stockService = StockServiceFactory.getStockService();
+
+        return stockService.getQuote(symbol);
+
     }
 }
