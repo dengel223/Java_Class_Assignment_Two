@@ -1,5 +1,8 @@
 package edu.davidengel.advancedjava;
 
+import java.util.Date;
+import java.util.List;
+
 /**
  * This is the main app to start the program
  *
@@ -26,4 +29,6 @@ public class App
         return stockService.getQuote(symbol);
 
     }
+
+
 }

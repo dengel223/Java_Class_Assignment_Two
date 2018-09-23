@@ -1,7 +1,7 @@
 package edu.davidengel.advancedjava;
 
 /**
- * This StockServiceFactory is a factory design patternt that returns the implementation of stock services
+ * This StockServiceFactory is a factory design pattern that returns the implementation of stock services
  *
  * @author David Engel and others
  * @verion 1.0
@@ -10,6 +10,15 @@ package edu.davidengel.advancedjava;
 
 
 public class StockServiceFactory {
+
+
+
+    /**
+     * Hide constructor
+     */
+    private StockServiceFactory() {
+
+    }
 
     /**
      * Factory for stock service
