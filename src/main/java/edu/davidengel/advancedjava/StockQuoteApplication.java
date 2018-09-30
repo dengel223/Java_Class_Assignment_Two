@@ -19,41 +19,51 @@ public class StockQuoteApplication {
      */
     public static void main(String[] args) throws ParseException {
 
-        String symbol = args[0];
-        Date fromDate = new SimpleDateFormat("MM/dd/yyyy").parse(args[1]);
-        Date endDate = new SimpleDateFormat("MM/dd/yyyy").parse(args[2]);
 
-        Calendar from = Calendar.getInstance();
-        from.setTime(fromDate);
-        Calendar end = Calendar.getInstance();
-        end.setTime(endDate);
+       /* if (args == null) {
 
-        //use the factory to get a new stockservice implementation
-        StockService stockService = StockServiceFactory.getStockService();
-
-        StockQuote stockQuote = stockService.getQuote("csco");
-        List<StockQuote> stockQuotes = stockService.getQuote("csco", from, end);
-        from.setTime(fromDate);
-        List<StockQuote> stockQuotesHourly = stockService.getQuote("csco", from, end, IntervalEnum.HOURLY);
-        from.setTime(fromDate);
-        List<StockQuote> stockQuotesSemiDaily = stockService.getQuote("csco", from, end, IntervalEnum.SEMIDAILY);
-        from.setTime(fromDate);
-
-        out.println("Single Quote Symbol: " + stockQuote.getStockSymbol() + " Date: " + stockQuote.getDateRecorded());
-
-        out.println("List of Stocks Output:");
-        for (StockQuote quote : stockQuotes) {
-            out.println("Stock Quote Symbol: " + quote.getStockSymbol() + " Date: " + quote.getDateRecorded() );
+            System.exit(0);
         }
+*/
+        if (args[0] != null && args[1] != null && args[2] != null) {
 
-        out.println("List of Stocks Output Hourly:");
-        for (StockQuote quote : stockQuotesHourly) {
-            out.println("Stock Quote Symbol: " + quote.getStockSymbol() + " Date: " + quote.getDateRecorded() );
-        }
+            String symbol = args[0];
+            Date fromDate = new SimpleDateFormat("MM/dd/yyyy").parse(args[1]);
+            Date endDate = new SimpleDateFormat("MM/dd/yyyy").parse(args[2]);
 
-        out.println("List of Stocks Output SemiDaily:");
-        for (StockQuote quote : stockQuotesSemiDaily) {
-            out.println("Stock Quote Symbol: " + quote.getStockSymbol() + " Date: " + quote.getDateRecorded() );
+
+            Calendar from = Calendar.getInstance();
+            from.setTime(fromDate);
+            Calendar end = Calendar.getInstance();
+            end.setTime(endDate);
+
+            //use the factory to get a new stockservice implementation
+            StockService stockService = StockServiceFactory.getStockService();
+
+            StockQuote stockQuote = stockService.getQuote(symbol);
+            List<StockQuote> stockQuotes = stockService.getQuote(symbol, from, end);
+            from.setTime(fromDate);
+            List<StockQuote> stockQuotesHourly = stockService.getQuote(symbol, from, end, IntervalEnum.HOURLY);
+            from.setTime(fromDate);
+            List<StockQuote> stockQuotesSemiDaily = stockService.getQuote(symbol, from, end, IntervalEnum.SEMIDAILY);
+            from.setTime(fromDate);
+
+            out.println("Single Quote Symbol: " + stockQuote.getStockSymbol() + " Date: " + stockQuote.getDateRecorded());
+
+            out.println("List of Stocks Output:");
+            for (StockQuote quote : stockQuotes) {
+                out.println("Stock Quote Symbol: " + quote.getStockSymbol() + " Date: " + quote.getDateRecorded());
+            }
+
+            out.println("List of Stocks Output Hourly:");
+            for (StockQuote quote : stockQuotesHourly) {
+                out.println("Stock Quote Symbol: " + quote.getStockSymbol() + " Date: " + quote.getDateRecorded());
+            }
+
+            out.println("List of Stocks Output SemiDaily:");
+            for (StockQuote quote : stockQuotesSemiDaily) {
+                out.println("Stock Quote Symbol: " + quote.getStockSymbol() + " Date: " + quote.getDateRecorded());
+            }
         }
     }
 
