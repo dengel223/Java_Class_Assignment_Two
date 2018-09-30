@@ -1,5 +1,7 @@
 package edu.davidengel.advancedjava;
 
+import jdk.nashorn.internal.ir.annotations.Immutable;
+
 /**
  * This StockServiceFactory is a factory design pattern that returns the implementation of stock services
  *
@@ -8,7 +10,7 @@ package edu.davidengel.advancedjava;
  * @since 9-15-2018
  */
 
-
+@Immutable
 public class StockServiceFactory {
 
 

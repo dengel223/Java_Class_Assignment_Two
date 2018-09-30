@@ -10,7 +10,11 @@ package edu.davidengel.advancedjava;
  */
 
 
+import com.sun.istack.internal.NotNull;
+import javafx.util.converter.LocalDateStringConverter;
+
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -26,7 +30,7 @@ public class BasicStockService implements StockService {
      */
 
 
-    public StockQuote getQuote(String symbol) {
+    public StockQuote getQuote(@NotNull String symbol) {
 
         return new StockQuote(new Date(), new BigDecimal(10.00), symbol );
 
@@ -38,27 +42,71 @@ public class BasicStockService implements StockService {
      * @param date
      * @return stockquote based on symbol and date
      */
-    public StockQuote getQuote(String symbol, Date date) {
+    public StockQuote getQuote(@NotNull String symbol, @NotNull Date date) {
 
         return new StockQuote(date, new BigDecimal(10.00), symbol );
 
     }
 
     /**
-     * Creates a list of stock quotes
+     * Creates a list of stock quotes, assumes a DAILY interval
      * @param symbol the stock symbol to search for
      * @param from the date of the first stock quote
      * @param until the date of the last stock quote
      * @return new list of stock quotes using sample data
      */
-    public List<StockQuote> getQuote(String symbol, Calendar from, Calendar until) {
+    public List<StockQuote> getQuote(@NotNull String symbol, @NotNull Calendar from, @NotNull Calendar until) {
 
         List<StockQuote> newQuoteList = new ArrayList<StockQuote>();
 
-        newQuoteList.add(getQuote("csco", from.getTime()));
-        newQuoteList.add(getQuote("csco", until.getTime()));
+        for (Calendar date = from; date.compareTo(until) <=0; date.add(Calendar.DATE, 1  ))
+        {
+            newQuoteList.add(getQuote("csco", date.getTime()));
+        }
 
         return newQuoteList;
+    }
+
+    /**
+     *
+     * @param symbol the stock symbol to search for
+     * @param from the date of the first stock quote
+     * @param until the date of the last stock quote
+     * @param interval the number of StockQuotes to get. E.g. if Interval.DAILY was specified
+     *                 one StockQuote per day will be returned.
+     * @return
+     */
+    public List<StockQuote> getQuote(@NotNull String symbol, @NotNull Calendar from, @NotNull Calendar until,
+                                     @NotNull IntervalEnum interval) {
+
+        List<StockQuote> newQuoteList = new ArrayList<StockQuote>();
+
+        switch (interval) {
+
+            case HOURLY:
+                //Returns one list entry per hour.
+                for (Calendar date = from; date.compareTo(until) <= 0; date.add(Calendar.HOUR, 1  ))
+                {
+                    newQuoteList.add(getQuote("csco", date.getTime()));
+                }
+                break;
+
+            case SEMIDAILY:
+                //Returns one list entry per 12 hours.
+                for (Calendar date = from; date.compareTo(until) <= 0; date.add(Calendar.HOUR, 12  ))
+                {
+                    newQuoteList.add(getQuote("csco", date.getTime()));
+                }
+                break;
+
+            case DAILY:
+                //Returns one list entry per day.
+                newQuoteList = getQuote(symbol, from, until);
+                break;
+        }
+
+        return newQuoteList;
+
     }
 
 }

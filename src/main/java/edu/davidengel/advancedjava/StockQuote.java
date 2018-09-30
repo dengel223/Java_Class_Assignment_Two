@@ -10,6 +10,9 @@ package edu.davidengel.advancedjava;
 
 
 
+import com.sun.istack.internal.NotNull;
+import jdk.nashorn.internal.ir.annotations.Immutable;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -17,6 +20,7 @@ import java.util.Date;
 /**
  * Container for stock quote data
  */
+@Immutable
 public class StockQuote {
 
     private String stockSymbol; //stock symbol
@@ -29,7 +33,7 @@ public class StockQuote {
      * @param stockPrice price of stock
      * @param stockSymbol stock symbol
      */
-    public StockQuote(Date dateRecorded, BigDecimal stockPrice, String stockSymbol) {
+    public StockQuote(@NotNull Date dateRecorded, @NotNull BigDecimal stockPrice, @NotNull String stockSymbol) {
         this.dateRecorded = dateRecorded;
         this.stockPrice = stockPrice;
         this.stockSymbol = stockSymbol;

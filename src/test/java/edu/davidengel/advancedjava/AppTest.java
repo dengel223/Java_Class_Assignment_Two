@@ -14,6 +14,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
+import org.junit.Assert;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -34,9 +36,7 @@ public class AppTest
 
         String expectedSymboValue = "csco";
 
-        App app = new App();
-
-        String actualSymbolValue = app.createQuote("csco").getStockSymbol();
+        String actualSymbolValue = StockQuoteApplication.createQuote("csco").getStockSymbol();
 
         assertEquals("Symbol fed to factory should match return symbol",expectedSymboValue, actualSymbolValue);
 
@@ -48,9 +48,7 @@ public class AppTest
     @Test
     public void createQuoteTestNegative() {
 
-        App app = new App();
-
-        String actualSymbolValue = app.createQuote("csco").getStockSymbol();
+        String actualSymbolValue = StockQuoteApplication.createQuote("csco").getStockSymbol();
 
         assertNotNull("Stock Symbol should be null",actualSymbolValue);
 
@@ -68,7 +66,7 @@ public class AppTest
         Date from = sdf.parse("9/22/2018");
         Date end = sdf.parse("9/23/2018");
 
-        List<StockQuote> stockQuotes = StockQuoteApplication.createQuotes("csco", from, end);
+        List<StockQuote> stockQuotes = StockQuoteApplication.createQuotes("csco", from, end, IntervalEnum.DAILY);
 
         String actualSymbolValue;
 
@@ -91,7 +89,7 @@ public class AppTest
         Date from = sdf.parse("9/22/2018");
         Date end = sdf.parse("9/23/2018");
 
-        List<StockQuote> stockQuotes = StockQuoteApplication.createQuotes("csco", from, end);
+        List<StockQuote> stockQuotes = StockQuoteApplication.createQuotes("csco", from, end, IntervalEnum.DAILY);
 
         for (StockQuote quote : stockQuotes )
         {
@@ -112,7 +110,7 @@ public class AppTest
         Date from = sdf.parse("9/22/2018");
         Date end = sdf.parse("9/23/2018");
 
-        List<StockQuote> stockQuotes = StockQuoteApplication.createQuotes("csco", from, end);
+        List<StockQuote> stockQuotes = StockQuoteApplication.createQuotes("csco", from, end, IntervalEnum.DAILY);
 
         //String actualSymbolValue = app.createQuote("csco").getStockSymbol();
         String actualSymbolValue;
@@ -136,7 +134,7 @@ public class AppTest
         Date from = sdf.parse("9/22/2018");
         Date end = sdf.parse("9/23/2018");
 
-        List<StockQuote> stockQuotes = StockQuoteApplication.createQuotes("csco", from, end);
+        List<StockQuote> stockQuotes = StockQuoteApplication.createQuotes("csco", from, end, IntervalEnum.DAILY);
 
         for (StockQuote quote : stockQuotes )
         {
@@ -145,6 +143,99 @@ public class AppTest
                     && quote.getDateRecorded().compareTo(end) <= 0) );
 
         }
+    }
+
+    /**
+     * Positive Test List of Quotes - No Interval ENTRIES
+     */
+    @Test
+    public void createQuotesNoIntervalTest() throws ParseException {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+        Date from = sdf.parse("9/22/2018");
+        Date end = sdf.parse("9/23/2018");
+
+        List<StockQuote> stockQuotes = StockQuoteApplication.createQuotes("csco", from, end);
+
+        assertEquals("", stockQuotes.size(), 2);
+
+    }
+
+    /**
+     * Negative Test List of Quotes - No Interval ENTRIES
+     */
+    @Test
+    public void createQuotesNoIntervalTestNegative() throws ParseException {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+        Date from = sdf.parse("9/22/2018");
+        Date end = sdf.parse("9/23/2018");
+
+        List<StockQuote> stockQuotes = StockQuoteApplication.createQuotes("csco", from, end);
+
+        assertFalse("", stockQuotes.size() != 2);
+    }
+
+    /**
+     * Positive Test List of Quotes - Hourly ENTRIES
+     */
+    @Test
+    public void createQuotesHourlyTest() throws ParseException {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+        Date from = sdf.parse("9/22/2018");
+        Date end = sdf.parse("9/23/2018");
+
+        List<StockQuote> stockQuotes = StockQuoteApplication.createQuotes("csco", from, end, IntervalEnum.HOURLY);
+
+        assertEquals("", stockQuotes.size(), 25);
+
+    }
+
+    /**
+     * Negative Test List of Quotes - Hourly ENTRIES
+     */
+    @Test
+    public void createQuotesHourlyTestNegative() throws ParseException {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+        Date from = sdf.parse("9/22/2018");
+        Date end = sdf.parse("9/23/2018");
+
+        List<StockQuote> stockQuotes = StockQuoteApplication.createQuotes("csco", from, end, IntervalEnum.HOURLY);
+
+        assertFalse("", stockQuotes.size() != 25);
+    }
+
+    /**
+     * Positive Test List of Quotes - SemiDaily ENTRIES
+     */
+    @Test
+    public void createQuotesSemiDailyTest() throws ParseException {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+        Date from = sdf.parse("9/22/2018");
+        Date end = sdf.parse("9/23/2018");
+
+        List<StockQuote> stockQuotes = StockQuoteApplication.createQuotes("csco", from, end, IntervalEnum.SEMIDAILY);
+
+        assertTrue("", stockQuotes.size() == 3);
+
+    }
+
+    /**
+     * Negative Test List of Quotes - SemiDaily ENTRIES
+     */
+    @Test
+    public void createQuotesSemiDailyTestNegative() throws ParseException {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+        Date from = sdf.parse("9/22/2018");
+        Date end = sdf.parse("9/23/2018");
+
+        List<StockQuote> stockQuotes = StockQuoteApplication.createQuotes("csco", from, end, IntervalEnum.SEMIDAILY);
+
+        assertFalse("", stockQuotes.size() != 3);
     }
 
     /**
