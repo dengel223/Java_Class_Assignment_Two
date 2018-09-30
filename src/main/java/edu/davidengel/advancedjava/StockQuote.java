@@ -10,7 +10,7 @@ package edu.davidengel.advancedjava;
 
 
 
-import com.sun.istack.internal.NotNull;
+import org.jetbrains.annotations.NotNull;
 import jdk.nashorn.internal.ir.annotations.Immutable;
 
 import java.math.BigDecimal;

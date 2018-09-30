@@ -10,11 +10,9 @@ package edu.davidengel.advancedjava;
  */
 
 
-import com.sun.istack.internal.NotNull;
-import javafx.util.converter.LocalDateStringConverter;
+import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
