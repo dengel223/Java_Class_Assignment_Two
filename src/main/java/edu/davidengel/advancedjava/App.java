@@ -1,11 +1,25 @@
 package edu.davidengel.advancedjava;
 
+import java.util.Date;
+import java.util.List;
+
 /**
- * Hello world!
+ * This is the main app to start the program
  *
+ * @author David Engel and others
+ * @verion 1.0
+ * @since 9-15-2018
  */
+
 public class App 
 {
+
+
+    /**
+     * Creates the stock quote usign the stockservice factory
+     * @param symbol string stock symbol
+     * @return stockquote object
+     */
     public StockQuote createQuote(String symbol)
     {
 
@@ -15,4 +29,6 @@ public class App
         return stockService.getQuote(symbol);
 
     }
+
+
 }
